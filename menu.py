@@ -1,6 +1,6 @@
 from menu_eventos import *
 from  menu_participantes import *
-from relatorios import mostrar_estatisticas
+from menu_estatisticas import mostrar_estatisticas
 
 def menu_principal():
     while True:
@@ -12,14 +12,14 @@ def menu_principal():
 
         opcao = input("Escolha uma opcao: ")
 
-        if opcao == "1":
-            menu_eventos()
-        elif opcao == "2":
-            menu_participantes()
-        elif opcao == "3":
-            mostrar_estatisticas()
-        elif opcao == "0":
-            print("Saindo do sistema...")
-            break
+        opcoes = {
+            "1": menu_eventos,
+            "2": menu_participantes,
+            "3": mostrar_estatisticas,
+            "0": lambda: print("Saindo do sistema...") or exit(0)
+        }
+
+        if opcao in opcoes:
+            opcoes[opcao]()
         else:
-            print("Opcao invalida.")
+            print("Opcao invalida. Tente novamente.")
