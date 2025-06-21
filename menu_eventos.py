@@ -1,4 +1,4 @@
-from func_eventos import adicionar_evento, listar_eventos
+from func_eventos_bd import adicionar_evento, listar_eventos
 
 def menu_eventos():
     while True:

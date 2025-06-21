@@ -1,24 +1,30 @@
-from func_participantes import adicionar_participante, listar_participantes
+from func_participantes_bd import *
+from func_menu_participantes import adicionar, listar, remover, atualizar, buscar_por_id, buscar_por_nome
 
 def menu_participantes():
     while True:
         print("\n--- Menu de Participantes ---")
         print("1. Adicionar participante")
         print("2. Listar participantes")
+        print("3. Remover participante")
+        print("4. Atualizar participante")
+        print("5. Buscar participante por ID")
+        print("6. Buscar participante por nome")
         print("0. Voltar")
 
         opcao = input("Escolha: ")
 
-        if opcao == "1":
-            nome = input("Nome do participante: ")
-            email = input("Email: ")
-            preferencias = input("Preferencias tematicas: ")
-            adicionar_participante(nome, email, preferencias)
-            print("Participante cadastrado com sucesso.")
-        elif opcao == "2":
-            for p in listar_participantes():
-                print(f"ID: {p[0]} | Nome: {p[1]} | Email: {p[2]} | Preferencias: {p[3]}")
-        elif opcao == "0":
-            break
+
+        opcoes = {
+            "1": adicionar,
+            "2": listar,
+            "3": remover,
+            "4": atualizar,
+            "5": buscar_por_id,
+            "6": buscar_por_nome,
+            "0": lambda: print("Voltando ao menu principal...") or exit(0)
+        }
+        if opcao in opcoes:
+            opcoes[opcao]()
         else:
-            print("Opcao invalida.")
+            print("Opção inválida. Tente novamente.")
