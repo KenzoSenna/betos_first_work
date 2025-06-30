@@ -22,9 +22,10 @@ def menu_participantes():
             "4": atualizar,
             "5": buscar_por_id,
             "6": buscar_por_nome,
-            "0": lambda: print("Voltando ao menu principal...") or exit(0)
+            "0": lambda: None
         }
+
         if opcao in opcoes:
             opcoes[opcao]()
         else:
-            print("Opção inválida. Tente novamente.")
+            print("\nOpção inválida. Tente novamente.")

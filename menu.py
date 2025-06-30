@@ -16,10 +16,10 @@ def menu_principal():
             "1": menu_eventos,
             "2": menu_participantes,
             "3": mostrar_estatisticas,
-            "0": lambda: print("Saindo do sistema...") or exit(0)
+            "0": lambda: None
         }
 
         if opcao in opcoes:
             opcoes[opcao]()
         else:
-            print("Opcao invalida. Tente novamente.")
+            print("\nOpcao invalida. Tente novamente.")

@@ -1,4 +1,4 @@
-from func_eventos_bd import adicionar_evento, listar_eventos
+from func_menu_eventos import *
 
 def menu_eventos():
     while True:
@@ -9,16 +9,14 @@ def menu_eventos():
 
         opcao = input("Escolha: ")
 
-        if opcao == "1":
-            nome = input("Nome do evento: ")
-            data = input("Data (AAAA-MM-DD): ")
-            tema = input("Tema: ")
-            adicionar_evento(nome, data, tema)
-            print("Evento adicionado com sucesso.")
-        elif opcao == "2":
-            for evento in listar_eventos():
-                print(f"ID: {evento[0]} | Nome: {evento[1]} | Data: {evento[2]} | Tema: {evento[3]}")
-        elif opcao == "0":
-            break
+        opcoes = {
+            "1": adicao_eventos_menu,
+            "2": listar_eventos_menu,
+            "0": lambda: None
+        }
+
+        acao = opcoes.get(opcao)
+        if acao:
+            acao()
         else:
-            print("Opcao invalida.")
+            print("\nOpção inválida. Tente novamente.")
