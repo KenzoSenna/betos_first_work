@@ -2,6 +2,8 @@ from menu_eventos import *
 from  menu_participantes import *
 from menu_estatisticas import mostrar_estatisticas
 
+
+
 def menu_principal():
     while True:
         print("\n=== Sistema de Gestao de Eventos ===")
@@ -16,10 +18,13 @@ def menu_principal():
             "1": menu_eventos,
             "2": menu_participantes,
             "3": mostrar_estatisticas,
-            "0": lambda: None
+            "0": print("\nEncerrando!")
         }
 
-        if opcao in opcoes:
-            opcoes[opcao]()
+        acao = opcoes.get(opcao)
+        if acao:
+            acao()
+        elif opcao == "0":
+            break
         else:
-            print("\nOpcao invalida. Tente novamente.")
+            print("\nOpção inválida. Tente novamente.")

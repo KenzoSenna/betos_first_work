@@ -1,8 +1,9 @@
 from func_participantes_bd import *
-from func_menu_participantes import adicionar, listar, remover, atualizar, buscar_por_id, buscar_por_nome
+from func_menu_participantes import *
 
 def menu_participantes():
     while True:
+
         print("\n--- Menu de Participantes ---")
         print("1. Adicionar participante")
         print("2. Listar participantes")
@@ -22,10 +23,13 @@ def menu_participantes():
             "4": atualizar,
             "5": buscar_por_id,
             "6": buscar_por_nome,
-            "0": lambda: None
+            "0": print("Voltando ao Menu principal")
         }
 
-        if opcao in opcoes:
-            opcoes[opcao]()
+        acao = opcoes.get(opcao)
+        if acao:
+            acao()
+        elif opcao == "0":
+            break
         else:
             print("\nOpção inválida. Tente novamente.")
