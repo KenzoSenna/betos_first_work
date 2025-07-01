@@ -31,14 +31,14 @@ def alterar_evento(id_evento, nome=None, data=None, tema=None):
 def excluir_evento(id_evento):
     conn = conectar()
     cur = conn.cursor()
-    cur.execute("DELETE * FROM eventos WHERE id = ?", (id_evento))
+    cur.execute("DELETE FROM eventos WHERE id = ?", (id_evento,))
     conn.commit()
     conn.close()
 
 def buscar_evento_por_id(id_evento):
     conn = conectar()
     cur = conn.cursor()
-    cur.execute("SELECT * FROM eventos WHERE id LIKE ?", (id_evento))
+    cur.execute("SELECT * FROM eventos WHERE id LIKE ?", (id_evento,))
     evento = cur.fetchall()
     conn.close()
     return evento

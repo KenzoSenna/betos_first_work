@@ -44,3 +44,4 @@ def buscar_por_nome():
             print(f"ID: {p[0]} | Nome: {p[1]} | Email: {p[2]} | Preferencias: {p[3]}")
     else:
         print("\nNenhum participante encontrado com esse nome.")
+

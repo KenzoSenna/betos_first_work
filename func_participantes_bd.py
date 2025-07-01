@@ -19,7 +19,7 @@ def listar_participantes():
 def remover_participante(id_participante):
     conn = conectar()
     cur = conn.cursor()
-    cur.execute("DELETE FROM participantes WHERE id = ?", (id_participante))
+    cur.execute("DELETE FROM participantes WHERE id = ?", (id_participante,))
     conn.commit()
     conn.close()
 
@@ -38,7 +38,7 @@ def atualizar_participante(id_participante, nome=None, email=None, preferencias=
 def buscar_participante_por_id(id_participante):
     conn = conectar()
     cur = conn.cursor()
-    cur.execute("SELECT * FROM participantes WHERE id = ?", (id_participante))
+    cur.execute("SELECT * FROM participantes WHERE id = ?", (id_participante,))
     participante = cur.fetchone()
     conn.close()
     return participante
@@ -46,7 +46,7 @@ def buscar_participante_por_id(id_participante):
 def buscar_participante_por_nome(nome):
     conn = conectar()
     cur = conn.cursor()
-    cur.execute("SELECT * FROM participantes WHERE nome LIKE ?", ('%' + nome + '%'))
+    cur.execute("SELECT * FROM participantes WHERE nome LIKE ?", ('%' + nome + '%',))
     participantes = cur.fetchall()
     conn.close()
     return participantes
