@@ -35,18 +35,10 @@ def excluir_evento(id_evento):
     conn.commit()
     conn.close()
 
-def buscar_evento_por_id(id_evento):
+def buscar_evento(termo):
     conn = conectar()
     cur = conn.cursor()
-    cur.execute("SELECT * FROM eventos WHERE id LIKE ?", (id_evento,))
-    evento = cur.fetchall()
-    conn.close()
-    return evento
-    
-def buscar_evento_por_nome(nome):
-    conn = conectar()
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM eventos WHERE nome LIKE ?", ('%' + nome + '%',))
+    cur.execute("SELECT * FROM eventos WHERE id LIKE ? or nome LIKE ? or tema LIKE ? or data LIKE ?", (termo, termo, termo, termo))
     evento = cur.fetchall()
     conn.close()
     return evento

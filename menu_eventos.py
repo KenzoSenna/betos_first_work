@@ -11,8 +11,7 @@ def menu_eventos():
         print("2. Listar eventos")
         print("3. Alterar evento")
         print("4. Remover evento")
-        print("5. Buscar evento por nome")
-        print("6. Buscar evento por id")
+        print("5. Buscar evento")
         print("0. Voltar")
 
         opcao = input("Escolha: ")
@@ -24,7 +23,7 @@ def menu_eventos():
             "2": listar_eventos_menu,
             "3": alterar_evento_menu,
             "4": remover_evento_menu,
-            "5": buscar_evento_por_id_menu,
+            "5": buscar_evento,
             "0": lambda: print("\nVoltando ao Menu principal")
         }
 

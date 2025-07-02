@@ -33,6 +33,15 @@ def criar_tabelas():
         FOREIGN KEY(id_evento) REFERENCES eventos(id),
         FOREIGN KEY(id_participante) REFERENCES participantes(id)
     )''')
+    
+    # criar table de temas
+    cur.execute('''
+    CREATE TABLE IF NOT EXISTS tema(
+        id_tema INTEGER PRIMARY KEY AUTOINCREMENT,
+        nome TEXT NOT NULL,
+        descricao TEXT NOT NULL
+)''')
 
+    
     conn.commit()
     conn.close()

@@ -12,8 +12,7 @@ def menu_participantes():
         print("2. Listar participantes")
         print("3. Remover participante")
         print("4. Atualizar participante")
-        print("5. Buscar participante por ID")
-        print("6. Buscar participante por nome")
+        print("5. Buscar participante")
         print("0. Voltar")
 
         opcao = input("Escolha: ")
@@ -27,8 +26,7 @@ def menu_participantes():
             "2": listar,
             "3": remover,
             "4": atualizar,
-            "5": buscar_por_id,
-            "6": buscar_por_nome,
+            "5": buscar_participante
         }
 
         acao = opcoes.get(opcao)

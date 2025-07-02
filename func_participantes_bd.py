@@ -8,7 +8,7 @@ def adicionar_participante(nome, email, preferencias):
     conn.commit()
     conn.close()
 
-def listar_participantes():
+def listar_participantes_bd():
     conn = conectar()
     cur = conn.cursor()
     cur.execute("SELECT * FROM participantes")
@@ -16,14 +16,30 @@ def listar_participantes():
     conn.close()
     return participantes
 
-def remover_participante(id_participante):
+def inscrever_participante_bd(id_evento, id_participante):
+    conn = conectar()
+    cur = conn.cursor()
+    cur.execute("INSERT INTO inscricoes (id_evento, id_participante) VALUES (?, ?)",
+                (id_evento, id_participante))
+    conn.commit()
+    conn.close()
+
+def listar_inscricoes_bd():
+    conn = conectar()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM inscricoes")
+    inscricoes = cur.fetchall()
+    conn.close()
+    return inscricoes
+
+def remover_participante_bd(id_participante):
     conn = conectar()
     cur = conn.cursor()
     cur.execute("DELETE FROM participantes WHERE id = ?", (id_participante,))
     conn.commit()
     conn.close()
 
-def atualizar_participante(id_participante, nome=None, email=None, preferencias=None):
+def atualizar_participant_bd(id_participante, nome=None, email=None, preferencias=None):
     conn = conectar()
     cur = conn.cursor()
     if nome:
@@ -35,18 +51,11 @@ def atualizar_participante(id_participante, nome=None, email=None, preferencias=
     conn.commit()
     conn.close()
 
-def buscar_participante_por_id(id_participante):
+def buscar_participante_bd(parametro):
     conn = conectar()
     cur = conn.cursor()
-    cur.execute("SELECT * FROM participantes WHERE id = ?", (id_participante,))
-    participante = cur.fetchone()
+    cur.execute("SELECT * FROM participantes WHERE id = ? OR nome LIKE ?", (parametro, '%' + parametro + '%'))
+    participante = cur.fetchall()
     conn.close()
     return participante
 
-def buscar_participante_por_nome(nome):
-    conn = conectar()
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM participantes WHERE nome LIKE ?", ('%' + nome + '%',))
-    participantes = cur.fetchall()
-    conn.close()
-    return participantes
