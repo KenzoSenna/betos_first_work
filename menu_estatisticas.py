@@ -1,4 +1,4 @@
-from func_estatisticas_bd import total_participantes, total_inscricoes, participantes_por_evento
+from func_menu_estatisticas import total_participantes, total_inscricoes, participantes_por_evento
 from utilidades_cod import limpa_terminal, continuar
 
 def mostrar_estatisticas():
