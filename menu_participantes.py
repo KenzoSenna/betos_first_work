@@ -22,11 +22,11 @@ def menu_participantes():
             break
 
         opcoes = {
-            "1": adicionar,
-            "2": listar,
-            "3": remover,
-            "4": atualizar,
-            "5": buscar_participante
+            "1": adicionar_participante_menu,
+            "2": listar_participantes_menu,
+            "3": remover_participantes_menu,
+            "4": atualizar_participantes_menu,
+            "5": buscar_participantes_menu
         }
 
         acao = opcoes.get(opcao)
