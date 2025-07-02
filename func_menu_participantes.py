@@ -12,6 +12,7 @@ def listar():
     [print(f"\nID: {p[0]} | Nome: {p[1]} | Email: {p[2]} | Preferencias: {p[3]}") for p in participantes]
     if not participantes:
         print("\nNenhum participante cadastrado.")
+
 def remover():
     id_participante = int(input("ID do participante a ser removido: "))
     remover_participante_bd(id_participante)

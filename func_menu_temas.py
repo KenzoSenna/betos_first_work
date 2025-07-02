@@ -20,6 +20,7 @@ def remover_tema():
     id_tema = input("Digite o id do tema a ser removido: ")
     if id_tema:
         remover_tema_bd(id_tema)
+        print("\nTema removido com sucesso!")
     else:
         print(f"Não foi possível encontrar o tema: {id_tema}")
 

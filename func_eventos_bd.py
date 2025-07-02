@@ -42,3 +42,5 @@ def buscar_evento(termo):
     evento = cur.fetchall()
     conn.close()
     return evento
+
+
