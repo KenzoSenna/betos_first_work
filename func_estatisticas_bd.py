@@ -1,9 +1,9 @@
-from func_participantes_bd import listar_inscricoes_bd
+from func_participantes_bd import listar_inscricoes_bd, listar_participantes_bd
 from func_eventos_bd import listar_eventos
 
 
 def total_participantes():
-    return print(f"Total de Participantes Cadastrados: {len(listar_participantes())}")
+    return print(f"Total de Participantes Cadastrados: {len(listar_participantes_bd())}")
 
 def total_inscricoes():
     inscricoes = listar_inscricoes_bd()
