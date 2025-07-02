@@ -1,46 +1,62 @@
 from database import conectar
 
-def adicionar_evento(nome, data, tema):
+def adicionar_evento_bd(nome, data, id_tema):
     conn = conectar()
     cur = conn.cursor()
-    cur.execute("INSERT INTO eventos (nome, data, tema) VALUES (?, ?, ?)", (nome, data, tema))
+    cur.execute(
+        "INSERT INTO eventos (nome, data, id_tema) VALUES (?, ?, ?)",
+        (nome, data, id_tema)
+    )
     conn.commit()
     conn.close()
 
-def listar_eventos():
-    conn = conectar()
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM eventos")
-    eventos = cur.fetchall()
-    conn.close()
-    return eventos
+def listar_eventos_bd():
+        conn = conectar()
+        cur = conn.cursor()
+        cur.execute(
+            """
+            SELECT e.id, e.nome, e.data, t.nome
+            FROM eventos e
+            LEFT JOIN tema t ON e.id_tema = t.id_tema
+            """
+        )
+        eventos = cur.fetchall()
+        conn.close()
+        return eventos
 
-def alterar_evento(id_evento, nome=None, data=None, tema=None):
+def alterar_evento_bd(id_evento, nome=None, data=None, id_tema=None):
+    
     conn = conectar()
     cur = conn.cursor()
-    
     if nome:
         cur.execute("UPDATE eventos SET nome = ? WHERE id = ?", (nome, id_evento))
     if data:
         cur.execute("UPDATE eventos SET data = ? WHERE id = ?", (data, id_evento))
-    if tema:
-        cur.execute("UPDATE eventos SET tema = ? WHERE id = ?", (tema, id_evento))
+    if id_tema is not None:
+        cur.execute("UPDATE eventos SET id_tema = ? WHERE id = ?", (id_tema, id_evento))
     conn.commit()
     conn.close()
 
-def excluir_evento(id_evento):
+def excluir_evento_bd(id_evento):
+    
     conn = conectar()
     cur = conn.cursor()
     cur.execute("DELETE FROM eventos WHERE id = ?", (id_evento,))
     conn.commit()
     conn.close()
 
-def buscar_evento(termo):
-    conn = conectar()
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM eventos WHERE id LIKE ? or nome LIKE ? or tema LIKE ? or data LIKE ?", (termo, termo, termo, termo))
-    evento = cur.fetchall()
-    conn.close()
-    return evento
+def buscar_evento_bd(termo):
+    try:
 
-
+        conn = conectar()
+        cur = conn.cursor()
+        termo_busca = f"%{termo}%"
+        cur.execute(
+            "SELECT * FROM eventos WHERE CAST(id AS TEXT) LIKE ? OR nome LIKE ? OR tema LIKE ? OR data LIKE ?",
+            (termo_busca, termo_busca, termo_busca, termo_busca)
+        )
+        evento = cur.fetchall()
+        conn.close()
+        return evento
+    except Exception as e:
+        print(f"Erro ao buscar evento: {e}")

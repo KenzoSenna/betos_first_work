@@ -34,9 +34,16 @@ def atualizar_tema_bd(id_tema, novo_tema):
     conn.close()
 
 def buscar_tema_bd(termo):
-    conn = conectar()
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM tema WHERE id_tema LIKE ? OR tema LIKE ?", (termo, termo))
-    temas = cur.fetchall()
-    conn.close()
-    return temas
+    try:
+        conn = conectar()
+        cur = conn.cursor()
+        termo_busca = f"%{termo}%"
+        cur.execute(
+            "SELECT * FROM tema WHERE id_tema LIKE ? OR tema LIKE ?",
+            (termo_busca, termo_busca)
+        )
+        temas = cur.fetchall()
+        conn.close()
+        return temas
+    except Exception as e:
+        print(f"Erro ao buscar tema: {e}")

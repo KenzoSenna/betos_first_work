@@ -22,8 +22,8 @@ def menu_eventos():
             "1": adicao_eventos_menu,
             "2": listar_eventos_menu,
             "3": alterar_evento_menu,
-            "4": remover_evento_menu,
-            "5": buscar_evento,
+            "4": excluir_evento_menu,
+            "5": buscar_evento_menu,
             "0": lambda: print("\nVoltando ao Menu principal")
         }
 

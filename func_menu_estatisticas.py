@@ -1,5 +1,5 @@
 from func_participantes_bd import listar_inscricoes_bd, listar_participantes_bd
-from func_eventos_bd import listar_eventos
+from func_eventos_bd import listar_eventos_bd
 
 def total_participantes():
     try:
@@ -18,7 +18,7 @@ def total_inscricoes():
         print(f"Erro ao listar total de inscrições: {e}")   
 def participantes_por_evento():
     try:
-        eventos = listar_eventos()
+        eventos = listar_eventos_bd()
         for evento in eventos:
             participantes = (evento[0])
             print(f"\nEvento: {evento[1]} - Participantes: {len(participantes)}")
@@ -27,7 +27,7 @@ def participantes_por_evento():
 
 def temas_mais_preferidos():
     try:
-        eventos = listar_eventos()
+        eventos = listar_eventos_bd()
         temas = {}
         
         for evento in eventos:
@@ -45,7 +45,7 @@ def temas_mais_preferidos():
 
 def eventos_mais_populares():
     try:
-        eventos = listar_eventos()
+        eventos = listar_eventos_bd()
         participantes_por_evento = {evento[0]: len(evento[2]) for evento in eventos}
         
         print("\nEventos mais populares:")
@@ -56,7 +56,7 @@ def eventos_mais_populares():
 
 def eventos_por_tema():
     try:
-        eventos = listar_eventos()
+        eventos = listar_eventos_bd()
         temas = {}
         
         for evento in eventos:
