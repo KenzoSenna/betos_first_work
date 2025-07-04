@@ -5,7 +5,7 @@ from menu_estatisticas import mostrar_estatisticas
 from utilidades_cod import limpa_terminal
 
 def menu_principal():
-    while True:
+
         limpa_terminal()
         print("\n=== Sistema de Gestao de Eventos ===")
         print("1. Gerenciar Eventos")
@@ -16,15 +16,12 @@ def menu_principal():
 
         opcao = input("Escolha uma opcao: ")
 
-        if opcao == "0":
-            print("\nEncerrando!")
-            break
-
         opcoes = {
             "1": menu_eventos,
             "2": menu_participantes,
             "3": menu_temas,
-            "4": mostrar_estatisticas
+            "4": mostrar_estatisticas,
+            "0": lambda: None
         }
 
         acao = opcoes.get(opcao)

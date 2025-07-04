@@ -4,7 +4,6 @@ from func_menu_temas import *
 
 def menu_temas():
 
-    while True:
         continuar()
         limpa_terminal()
         print("\n--- Menu de Temas ---")
@@ -16,17 +15,15 @@ def menu_temas():
         print("0. Voltar")
 
         opcao = input("Escolha: ")
-        
-        if opcao == "0":
-            print("\nVoltando ao menu principal...")
-            break
-
+             
         opcoes = {
+             
             "1": adicionar_tema,
             "2": listar_temas,
             "3": remover_tema,
             "4": atualizar_tema,
-            "5": buscar_tema
+            "5": buscar_tema,
+            "0": lambda: None
 
         }
 

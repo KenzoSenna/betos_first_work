@@ -2,7 +2,7 @@ from func_menu_estatisticas import *
 from utilidades_cod import limpa_terminal, continuar
 
 def mostrar_estatisticas():
-    while True:
+
         continuar()
         limpa_terminal()
         print("\n=== Estatísticas de Eventos ===")
@@ -15,11 +15,6 @@ def mostrar_estatisticas():
         print("0. Sair")
 
         opcao = input("Escolha uma opção: ")
-
-        if opcao == "0":
-
-            print("\nEncerrando estatísticas!")
-            break
         
         opcoes = {
             "1": total_participantes,
@@ -27,8 +22,10 @@ def mostrar_estatisticas():
             "3": participantes_por_evento,
             "4": temas_mais_preferidos,
             "5": eventos_mais_populares,
-            "6": eventos_por_tema
+            "6": eventos_por_tema,
+            "0": lambda: None
         }
+        
         acao = opcoes.get(opcao)
         if acao:
             acao()

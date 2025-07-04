@@ -3,7 +3,6 @@ from utilidades_cod import *
 
 def menu_eventos():
 
-    while True:
         continuar()
         limpa_terminal()
         print("\n--- Menu de Eventos ---")
@@ -15,8 +14,6 @@ def menu_eventos():
         print("0. Voltar")
 
         opcao = input("Escolha: ")
-        if opcao == "0":
-            break
 
         opcoes = {
             "1": adicao_eventos_menu,
