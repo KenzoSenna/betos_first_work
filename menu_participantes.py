@@ -3,7 +3,7 @@ from func_menu_participantes import *
 from utilidades_cod import *
 
 def menu_participantes():
-
+    while True:
         continuar()
         limpa_terminal()
         print("\n--- Menu de Participantes ---")
@@ -12,17 +12,22 @@ def menu_participantes():
         print("3. Remover participante")
         print("4. Atualizar participante")
         print("5. Buscar participante")
+        print("6. Inscrever participante em evento")
         print("0. Voltar")
 
-        opcao = input("Escolha: ")
+        opcao = input("\nEscolha: ")
     
+        if opcao == "0":
+            print("<<< Saindo >>>")
+            break
+
         opcoes = {
             "1": adicionar_participante_menu,
             "2": listar_participantes_menu,
             "3": remover_participantes_menu,
             "4": atualizar_participantes_menu,
             "5": buscar_participantes_menu,
-            "0": lambda: None
+            "6": inscrever_participante_menu
         }
 
         acao = opcoes.get(opcao)

@@ -3,7 +3,7 @@ from utilidades_cod import limpa_terminal, continuar
 from func_menu_temas import *
 
 def menu_temas():
-
+    while True:
         continuar()
         limpa_terminal()
         print("\n--- Menu de Temas ---")
@@ -16,14 +16,17 @@ def menu_temas():
 
         opcao = input("Escolha: ")
              
+        if opcao == "0":
+            print("\n<<< Saindo >>>")
+            break     
+
         opcoes = {
              
             "1": adicionar_tema,
             "2": listar_temas,
             "3": remover_tema,
             "4": atualizar_tema,
-            "5": buscar_tema,
-            "0": lambda: None
+            "5": buscar_tema
 
         }
 

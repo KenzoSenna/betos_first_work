@@ -2,7 +2,7 @@ from func_menu_eventos import *
 from utilidades_cod import *
 
 def menu_eventos():
-
+    while True:
         continuar()
         limpa_terminal()
         print("\n--- Menu de Eventos ---")
@@ -14,14 +14,16 @@ def menu_eventos():
         print("0. Voltar")
 
         opcao = input("Escolha: ")
+        if opcao == "0":
+            print("\n<<< Saindo >>>")
+            break
 
         opcoes = {
             "1": adicao_eventos_menu,
             "2": listar_eventos_menu,
             "3": alterar_evento_menu,
             "4": excluir_evento_menu,
-            "5": buscar_evento_menu,
-            "0": lambda: None
+            "5": buscar_evento_menu
         }
 
         acao = opcoes.get(opcao)

@@ -1,6 +1,14 @@
 from database import conectar
+from datetime import datetime
 
 def adicionar_evento_bd(nome, data, id_tema):
+
+    try:
+        datetime.strptime(data, "%d-%m-%Y")
+    except ValueError:
+        print("Data inválida! Use o formato DD-MM-AAAA.")
+        return
+
     conn = conectar()
     cur = conn.cursor()
     cur.execute(
@@ -52,7 +60,7 @@ def buscar_evento_bd(termo):
         cur = conn.cursor()
         termo_busca = f"%{termo}%"
         cur.execute(
-            "SELECT * FROM eventos WHERE CAST(id AS TEXT) LIKE ? OR nome LIKE ? OR tema LIKE ? OR data LIKE ?",
+            "SELECT * FROM eventos WHERE CAST(id AS TEXT) LIKE ? OR nome LIKE ? OR id_tema LIKE ? OR data LIKE ?",
             (termo_busca, termo_busca, termo_busca, termo_busca)
         )
         evento = cur.fetchall()

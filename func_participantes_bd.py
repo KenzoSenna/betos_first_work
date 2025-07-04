@@ -59,3 +59,10 @@ def buscar_participante_bd(parametro):
     conn.close()
     return participante
 
+def inscrever_participante_evento_bd(id_participante, id_evento):
+    conn = conectar()
+    cur = conn.cursor()
+    cur.execute("INSERT INTO inscricoes (id_participante, id_evento) VALUES (?, ?)",
+                (id_participante, id_evento))
+    conn.commit()
+    conn.close()

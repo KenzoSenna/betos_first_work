@@ -1,9 +1,14 @@
 from func_tema_bd import *
-from utilidades_cod import limpa_terminal, continuar
 
 def adicionar_tema():
     try:
-        tema = input("Digite o nome do tema: ")
+        from func_menu_temas import temas_mais_preferidos
+        temas_preferidos = temas_mais_preferidos()
+        if temas_preferidos:
+            print("\nTemas que os participantes disseram preferir:")
+            for tema in temas_preferidos:
+                print(f"ID: {tema[0]} | Tema: {tema[1]} | Descrição: {tema[2]}")
+        tema = input("\nDigite o nome do tema: ")
         descricao = input("Digite a descrição do tema: ")
         adicionar_tema_bd(tema, descricao)
         print("\nTema adicionado com sucesso!")

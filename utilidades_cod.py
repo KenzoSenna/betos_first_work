@@ -6,7 +6,7 @@ def limpa_terminal():
     except Exception as e:
         print(f"erro ao limpar o terminal: {e}")
 def continuar():
-    resposta_user = input("<<< Digite ENTER para continuar >>>\n")
+    resposta_user = input("<<< APERTE ENTER para continuar >>>\n")
     if resposta_user == "":
         return
     return continuar()
