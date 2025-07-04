@@ -21,7 +21,7 @@ def menu_eventos():
             "3": alterar_evento_menu,
             "4": excluir_evento_menu,
             "5": buscar_evento_menu,
-            "0": lambda: print("\nVoltando ao Menu principal")
+            "0": lambda: None
         }
 
         acao = opcoes.get(opcao)
