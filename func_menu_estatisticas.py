@@ -1,15 +1,19 @@
-from func_participantes_bd import listar_inscricoes_bd, listar_participantes_bd
-from func_eventos_bd import listar_eventos_bd
+from func_participantes_bd import display_inscriptions_from_db, get_participants_from_db
+from func_eventos_bd import get_events_from_db
 
-def total_participantes():
+def participants_total():
+    # This function lists the total number of participants.
+    # It assumes that the participants data is stored in a database.
     try:
-        return print(f"Total de Participantes Cadastrados: {len(listar_participantes_bd())}")
+        return print(f"Total de Participantes Cadastrados: {len(get_participants_from_db())}")
     except Exception as e:
         print(f"Errp ao listar total de participantes: {e}")
 
-def total_inscricoes():
+def inscriptions_total():
+    # This function lists the total number of inscriptions.
+    # It assumes that the inscriptions data is stored in a database.
     try:
-        inscricoes = listar_inscricoes_bd()
+        inscricoes = display_inscriptions_from_db()
         if inscricoes:
             return print(f"Total de Inscrições: {len(inscricoes)}")
         else:
@@ -18,16 +22,18 @@ def total_inscricoes():
         print(f"Erro ao listar total de inscrições: {e}")   
 def participantes_por_evento():
     try:
-        eventos = listar_eventos_bd()
+        eventos = get_events_from_db()
         for evento in eventos:
             participantes = (evento[0])
             print(f"\nEvento: {evento[1]} - Participantes: {len(participantes)}")
     except Exception as e:
         print(f"\nErro ao listar participantes por evento: {e}")
 
-def temas_mais_preferidos():
+def most_popular_themes():
+    # This function lists the most preferred themes based on the number of participants.
+    # It assumes that the event data includes a theme field.
     try:
-        eventos = listar_eventos_bd()
+        eventos = get_events_from_db()
         temas = {}
         
         for evento in eventos:
@@ -43,10 +49,15 @@ def temas_mais_preferidos():
     except Exception as e:
         print(f"\nErro ao listar temas mais preferidos: {e}")
 
-def eventos_mais_populares():
+def most_popular_events():
+    # This function lists the most popular events based on the number of participants.
+    # It assumes that the event data includes a list of participants.
     try:
-        eventos = listar_eventos_bd()
+        eventos = get_events_from_db()
         participantes_por_evento = {evento[0]: len(evento[2]) for evento in eventos}
+        if not participantes_por_evento:
+            print("\nNenhum evento encontrado.")
+            return
         
         print("\nEventos mais populares:")
         for evento_id, count in sorted(participantes_por_evento.items(), key=lambda x: x[1], reverse=True):
@@ -54,11 +65,14 @@ def eventos_mais_populares():
     except Exception as e:
         print(f"\nErro listar eventos mais populares: {e}")
 
-def eventos_por_tema():
+def events_in_themes():
+    # This function lists events grouped by their themes.
     try:
-        eventos = listar_eventos_bd()
+        eventos = get_events_from_db()
         temas = {}
-        
+        if not eventos:
+            print("\nNenhum evento encontrado.")
+            return
         for evento in eventos:
             tema = evento[3]
             if tema in temas:

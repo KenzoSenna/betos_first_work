@@ -1,16 +1,17 @@
 from func_menu_eventos import *
 from utilidades_cod import *
 
-def menu_eventos():
+def events_menu():
     while True:
-        continuar()
-        limpa_terminal()
+        continue_by_pressing_enter()
+        clean_terminal_by_op_sys()
         print("\n--- Menu de Eventos ---")
         print("1. Adicionar evento")
         print("2. Listar eventos")
         print("3. Alterar evento")
         print("4. Remover evento")
         print("5. Buscar evento")
+
         print("0. Voltar")
 
         opcao = input("Escolha: ")
@@ -19,11 +20,11 @@ def menu_eventos():
             break
 
         opcoes = {
-            "1": adicao_eventos_menu,
-            "2": listar_eventos_menu,
-            "3": alterar_evento_menu,
-            "4": excluir_evento_menu,
-            "5": buscar_evento_menu
+            "1": event_creation_menu,
+            "2": display_event_menu,
+            "3": update_event_menu,
+            "4": event_removal_menu,
+            "5": search_event_menu
         }
 
         acao = opcoes.get(opcao)

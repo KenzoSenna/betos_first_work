@@ -1,12 +1,12 @@
 from database import conectar
 from datetime import datetime
 
-def adicionar_evento_bd(nome, data, id_tema):
-
+def add_event_in_db(nome, data, id_tema):
+    # This function adds a new event to the database.
     try:
-        datetime.strptime(data, "%d-%m-%Y")
+        datetime.strptime(data, "%d/%m/%Y")
     except ValueError:
-        print("Data inválida! Use o formato DD-MM-AAAA.")
+        print("Data inválida! Use o formato DD/MM/AAAA.")
         return
 
     conn = conectar()
@@ -18,7 +18,8 @@ def adicionar_evento_bd(nome, data, id_tema):
     conn.commit()
     conn.close()
 
-def listar_eventos_bd():
+def get_events_from_db():
+     # This function retrieves all events from the database.
         conn = conectar()
         cur = conn.cursor()
         cur.execute(
@@ -31,9 +32,9 @@ def listar_eventos_bd():
         eventos = cur.fetchall()
         conn.close()
         return eventos
-
-def alterar_evento_bd(id_evento, nome=None, data=None, id_tema=None):
-    
+        
+def update_event_in_db(id_evento, nome=None, data=None, id_tema=None):
+    # This function updates an existing event in the database.
     conn = conectar()
     cur = conn.cursor()
     if nome:
@@ -45,7 +46,8 @@ def alterar_evento_bd(id_evento, nome=None, data=None, id_tema=None):
     conn.commit()
     conn.close()
 
-def excluir_evento_bd(id_evento):
+def delete_event_from_db(id_evento):
+    # This function deletes an event from the database by its ID.
     
     conn = conectar()
     cur = conn.cursor()
@@ -53,7 +55,9 @@ def excluir_evento_bd(id_evento):
     conn.commit()
     conn.close()
 
-def buscar_evento_bd(termo):
+def search_event_in_db(termo):
+    # This function searches for events in the database based on a search term.
+    # It can search by ID, name, theme ID, or date.
     try:
 
         conn = conectar()

@@ -3,11 +3,12 @@ import sqlite3
 def conectar():
     return sqlite3.connect("base_eventos.db")
 
-def criar_tabelas():
+def create_tables():
+
     conn = conectar()
     cur = conn.cursor()
 
-    # Cria tabela de temas
+    # Create the table for themes
     cur.execute('''
     CREATE TABLE IF NOT EXISTS tema(
         id_tema INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -15,7 +16,7 @@ def criar_tabelas():
         descricao TEXT
     )''')
 
-    # Cria tabela de participantes
+    # Create table for participants
     cur.execute('''
     CREATE TABLE IF NOT EXISTS participantes (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -24,7 +25,7 @@ def criar_tabelas():
         preferencias TEXT
     )''')
 
-    # Cria tabela de eventos
+    # Create table for events
     cur.execute('''
     CREATE TABLE IF NOT EXISTS eventos (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -34,7 +35,7 @@ def criar_tabelas():
         FOREIGN KEY(id_tema) REFERENCES tema(id_tema)
     )''')
 
-    # Cria tabela de inscricoes
+    # Create table for inscriptions
     cur.execute('''
     CREATE TABLE IF NOT EXISTS inscricoes (
         id_evento INTEGER,

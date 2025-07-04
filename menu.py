@@ -1,17 +1,18 @@
 from menu_eventos import *
 from  menu_participantes import *
 from menu_temas import *
-from menu_estatisticas import mostrar_estatisticas
-from utilidades_cod import limpa_terminal
+from menu_estatisticas import statistics_menu
+from utilidades_cod import clean_terminal_by_op_sys
 
-def menu_principal():
+def main_menu():
     while True:
-        limpa_terminal()
+        clean_terminal_by_op_sys()
         print("\n=== Sistema de Gestao de Eventos ===")
         print("1. Gerenciar Eventos")
         print("2. Gerenciar Participantes")
         print("3. Gerenciar temas")
         print("4. Estatísticas")
+
         print("0. Sair")
 
         opcao = input("Escolha uma opcao: ")
@@ -21,10 +22,10 @@ def menu_principal():
             break
 
         opcoes = {
-            "1": menu_eventos,
-            "2": menu_participantes,
-            "3": menu_temas,
-            "4": mostrar_estatisticas
+            "1": events_menu,
+            "2": participants_menu,
+            "3": themes_menu,
+            "4": statistics_menu
             
         }
 

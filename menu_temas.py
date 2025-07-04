@@ -1,11 +1,11 @@
 from func_menu_temas import *
-from utilidades_cod import limpa_terminal, continuar
+from utilidades_cod import clean_terminal_by_op_sys, continue_by_pressing_enter
 from func_menu_temas import *
 
-def menu_temas():
+def themes_menu():
     while True:
-        continuar()
-        limpa_terminal()
+        continue_by_pressing_enter()
+        clean_terminal_by_op_sys()
         print("\n--- Menu de Temas ---")
         print("1. Adicionar tema")
         print("2. Listar temas")
@@ -22,11 +22,11 @@ def menu_temas():
 
         opcoes = {
              
-            "1": adicionar_tema,
-            "2": listar_temas,
-            "3": remover_tema,
-            "4": atualizar_tema,
-            "5": buscar_tema
+            "1": add_themes_menu,
+            "2": display_themes_menu,
+            "3": themes_removal_menu,
+            "4": themes_update_menu,
+            "5": theme_search_menu
 
         }
 

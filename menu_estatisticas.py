@@ -1,11 +1,11 @@
 from func_menu_estatisticas import *
-from utilidades_cod import limpa_terminal, continuar
+from utilidades_cod import clean_terminal_by_op_sys, continue_by_pressing_enter
 
-def mostrar_estatisticas():
+def statistics_menu():
     while True:
-        continuar()
-        limpa_terminal()
-        print("\n=== Estatísticas de Eventos ===")
+        continue_by_pressing_enter()
+        clean_terminal_by_op_sys()
+        print("\n--- Menu de Estatísticas Gerais ---")
         print("1. Total de Participantes")
         print("2. Total de Inscrições")
         print("3. Participantes por Evento")
@@ -21,12 +21,12 @@ def mostrar_estatisticas():
             break
         
         opcoes = {
-            "1": total_participantes,
-            "2": total_inscricoes,
+            "1": participants_total,
+            "2": inscriptions_total,
             "3": participantes_por_evento,
-            "4": temas_mais_preferidos,
-            "5": eventos_mais_populares,
-            "6": eventos_por_tema
+            "4": most_popular_themes,
+            "5": most_popular_events,
+            "6": events_in_themes
         }
         
         acao = opcoes.get(opcao)
