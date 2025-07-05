@@ -54,7 +54,13 @@ def themes_update_menu():
         id_tema = input("Digite o id do tema a ser atualizado: ")
         if id_tema:
             novo_tema = input("Digite o novo nome do tema: ")
+            if not novo_tema.strip():
+                print("O nome do tema não pode ser vazio.")
+                return
             nova_descricao = input("Digite a nova descrição do tema: ")
+            if not nova_descricao.strip():
+                print("A descrição do tema não pode ser vazia.")
+                return
             theme_update_in_db(id_tema, novo_tema, nova_descricao)
             print("\nTema atualizado com sucesso!")
         else:
