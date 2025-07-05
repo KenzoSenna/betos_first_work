@@ -8,6 +8,9 @@ def add_participant_menu():
         nome = input("\nNome do participante: ")
         email = input("Email: ")
         preferencias = input("Preferencias tematicas: ")
+        if not nome.strip() or not email.strip():
+            print("Nome e email são obrigatórios.")
+            return
         add_participants_in_db(nome, email, preferencias)
         print("Participante cadastrado com sucesso.")
     except Exception as e:
@@ -18,8 +21,10 @@ def display_participants_menu():
     # It retrieves the list of participants from the database and prints their details.
     try: 
         participantes = get_participants_from_db()
-        [print(f"\nID: {p[0]} | Nome: {p[1]} | Email: {p[2]} | Preferencias: {p[3]}") for p in participantes]
-        if not participantes:
+        if participantes:
+            for p in participantes:
+                print(f"\nID: {p[0]} | Nome: {p[1]} | Email: {p[2]} | Preferencias: {p[3]}")
+        else:
             print("\nNenhum participante cadastrado.")
     except Exception as e:
         print(f"Erro ao listar participantes: {e}")
@@ -28,9 +33,13 @@ def participant_removal_menu():
     # This function allows the user to remove a participant by ID.
     # It prompts the user to enter the ID of the participant to be removed.
     try:
-        id_participante = int(input("ID do participante a ser removido: "))
-        if not id_participante:
-            print("ID inválido. O participante não foi removido.")
+        try:
+            id_participante = int(input("ID do participante a ser removido: "))
+            if id_participante <= 0:
+                print("ID inválido. O participante não foi removido.")
+                return
+        except ValueError:
+            print("Por favor, digite um número válido para o ID.")
             return
         participant_removal_in_db(id_participante)
         print("\nParticipante removido com sucesso.")
@@ -44,13 +53,17 @@ def update_participants_menu():
     try:
         print("Participantes cadastrados:")
         display_participants_menu()
-        id_participante = int(input("\nID do participante a ser atualizado: "))
+        try:
+            id_participante = int(input("\nID do participante a ser atualizado: "))
+            if id_participante <= 0:
+                print("ID inválido. O participante não foi atualizado.")
+                return
+        except ValueError:
+            print("Por favor, digite um número válido para o ID.")
+            return
         nome = input("Novo nome (deixe em branco para não alterar): ")
         email = input("Novo email (deixe em branco para não alterar): ")
         preferencias = input("Novas preferências temáticas (deixe em branco para não alterar): ")
-        if not id_participante:
-            print("ID inválido. O participante não foi atualizado.")
-            return
         if not nome and not email and not preferencias:
             print("Nenhuma alteração foi feita.")
             return
@@ -63,13 +76,18 @@ def search_participant_menu():
     # This function allows the user to search for a participant by ID.
     # It prompts the user to enter an ID and displays the participant's details if found.
     try:
-        id_participante = int(input("\nID do participante a ser buscado: "))
-        participante = search_participants_in_db(id_participante)
-        if not id_participante:
-            print("ID inválido. O participante não foi encontrado.")
+        try:
+            id_participante = int(input("\nID do participante a ser buscado: "))
+            if id_participante <= 0:
+                print("ID inválido. O participante não foi encontrado.")
+                return
+        except ValueError:
+            print("Por favor, digite um número válido para o ID.")
             return
-        if participante:
-            print(f"ID: {participante[0]} | Nome: {participante[1]} | Email: {participante[2]} | Preferencias: {participante[3]}")
+        participantes = search_participants_in_db(id_participante)
+        if participantes:
+            for participante in participantes:
+                print(f"ID: {participante[0]} | Nome: {participante[1]} | Email: {participante[2]} | Preferencias: {participante[3]}")
         else:
             print("Participante não encontrado.")
     except Exception as e:
@@ -82,16 +100,30 @@ def subscribe_participant_to_event():
     try:
         print("Participantes cadastrados:")
         display_participants_menu()
-        id_participante = int(input("\nID do participante a ser inscrito: "))
-        if not id_participante:
-            print("ID do participante inválido.")
+        try:
+            id_participante = int(input("\nID do participante a ser inscrito: "))
+            if id_participante <= 0:
+                print("ID do participante inválido.")
+                return
+        except ValueError:
+            print("Por favor, digite um número válido para o ID do participante.")
             return
         print("Eventos disponíveis:")
-        get_events_from_db()
-        id_evento = int(input("ID do evento: "))
-        if not id_participante or not id_evento:
-            print("ID do participante ou do evento inválido.")
+        eventos = get_events_from_db()
+        if not eventos:
+            print("Nenhum evento disponível.")
             return
+        for evento in eventos:
+            print(f"ID: {evento[0]} | Nome: {evento[1]} | Data: {evento[2]} | Tema: {evento[3]}")
+        try:
+            id_evento = int(input("ID do evento: "))
+            if id_evento <= 0:
+                print("ID do evento inválido.")
+                return
+        except ValueError:
+            print("Por favor, digite um número válido para o ID do evento.")
+            return
+        # Verificação de inscrição duplicada pode ser feita aqui, se desejar
         register_participant_to_event_db(id_participante, id_evento)
         print("\nParticipante inscrito no evento com sucesso.")
     except Exception as e:

@@ -56,10 +56,7 @@ def delete_event_from_db(id_evento):
     conn.close()
 
 def search_event_in_db(termo):
-    # This function searches for events in the database based on a search term.
-    # It can search by ID, name, theme ID, or date.
     try:
-
         conn = conectar()
         cur = conn.cursor()
         termo_busca = f"%{termo}%"
@@ -72,3 +69,4 @@ def search_event_in_db(termo):
         return evento
     except Exception as e:
         print(f"Erro ao buscar evento: {e}")
+        return []

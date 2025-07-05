@@ -15,6 +15,7 @@ def participants_menu():
         print("6. Inscrever participante em evento")
         print("0. Voltar")
 
+
         opcao = input("\nEscolha: ")
     
         if opcao == "0":

@@ -11,7 +11,6 @@ def events_menu():
         print("3. Alterar evento")
         print("4. Remover evento")
         print("5. Buscar evento")
-
         print("0. Voltar")
 
         opcao = input("Escolha: ")

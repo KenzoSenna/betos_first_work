@@ -11,6 +11,9 @@ def add_themes_menu():
             for tema in temas_preferidos:
                 print(f"ID: {tema[0]} | Tema: {tema[1]} | Descrição: {tema[2]}")
         tema = input("\nDigite o nome do tema: ")
+        if not tema.strip():
+            print("O nome do tema não pode ser vazio.")
+            return
         descricao = input("Digite a descrição do tema: ")
         add_themes_in_db(tema, descricao)
         print("\nTema adicionado com sucesso!")

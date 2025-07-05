@@ -23,7 +23,7 @@ def statistics_menu():
         opcoes = {
             "1": participants_total,
             "2": inscriptions_total,
-            "3": participantes_por_evento,
+            "3": participants_for_events,
             "4": most_popular_themes,
             "5": most_popular_events,
             "6": events_in_themes

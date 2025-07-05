@@ -20,12 +20,15 @@ def inscriptions_total():
             return print("\nNenhuma inscrição encontrada.")
     except Exception as e:
         print(f"Erro ao listar total de inscrições: {e}")   
-def participantes_por_evento():
+def participants_for_events():
+    # This function lists the number of participants for each event.
+    # It retrieves the events and inscriptions from the database and counts participants for each event.
     try:
         eventos = get_events_from_db()
+        inscricoes = display_inscriptions_from_db()
         for evento in eventos:
-            participantes = (evento[0])
-            print(f"\nEvento: {evento[1]} - Participantes: {len(participantes)}")
+            count = sum(1 for i in inscricoes if i[0] == evento[0])
+            print(f"\nEvento: {evento[1]} - Participantes: {count}")
     except Exception as e:
         print(f"\nErro ao listar participantes por evento: {e}")
 
@@ -50,15 +53,13 @@ def most_popular_themes():
         print(f"\nErro ao listar temas mais preferidos: {e}")
 
 def most_popular_events():
-    # This function lists the most popular events based on the number of participants.
-    # It assumes that the event data includes a list of participants.
     try:
         eventos = get_events_from_db()
-        participantes_por_evento = {evento[0]: len(evento[2]) for evento in eventos}
+        inscricoes = display_inscriptions_from_db()
+        participantes_por_evento = {evento[0]: sum(1 for i in inscricoes if i[0] == evento[0]) for evento in eventos}
         if not participantes_por_evento:
             print("\nNenhum evento encontrado.")
             return
-        
         print("\nEventos mais populares:")
         for evento_id, count in sorted(participantes_por_evento.items(), key=lambda x: x[1], reverse=True):
             print(f"Evento ID {evento_id}: {count} participantes")

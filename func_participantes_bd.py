@@ -25,9 +25,14 @@ def register_participant_to_event_db(id_evento, id_participante):
     # It connects to the database and inserts a record into the inscricoes table.
     conn = conectar()
     cur = conn.cursor()
-    cur.execute("INSERT INTO inscricoes (id_evento, id_participante) VALUES (?, ?)",
-                (id_evento, id_participante))
-    conn.commit()
+    cur.execute("SELECT * FROM inscricoes WHERE id_evento = ? AND id_participante = ?", (id_evento, id_participante))
+    if cur.fetchone():
+        print("Participante já inscrito neste evento.")
+    else:
+        cur.execute("INSERT INTO inscricoes (id_evento, id_participante) VALUES (?, ?)",
+                    (id_evento, id_participante))
+        conn.commit()
+        print("Inscrição realizada com sucesso.")
     conn.close()
 
 def display_inscriptions_from_db():

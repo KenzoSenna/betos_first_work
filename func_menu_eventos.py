@@ -13,11 +13,23 @@ def event_creation_menu():
         print("\nTemas disponíveis:")
         for t in temas:
             print(f"ID: {t[0]} | Tema: {t[1]}")
-        id_tema = int(input("Selecione o ID do tema para este evento: "))
+        try:
+            id_tema = int(input("Selecione o ID do tema para este evento: "))
+            if id_tema <= 0:
+                print("ID de tema inválido.")
+                return
+        except ValueError:
+            print("Por favor, digite um número válido para o ID do tema.")
+            return
         nome = input("Nome do evento: ")
-        data = datetime.strptime(input("Data (DD/MM/AAAA): "), "%d/%m/%Y").strftime("%d/%m/%Y")
-        if not nome or not data:
-            print("Nome ou data inválidos. O evento não foi adicionado.")
+        if not nome.strip():
+            print("Nome do evento não pode ser vazio.")
+            return
+        try:
+            data_str = input("Data (DD/MM/AAAA): ")
+            data = datetime.strptime(data_str, "%d/%m/%Y").strftime("%d/%m/%Y")
+        except ValueError:
+            print("Data inválida! Use o formato DD/MM/AAAA.")
             return
         add_event_in_db(nome, data, id_tema)
         print("Evento adicionado com sucesso.")
@@ -49,14 +61,42 @@ def update_event_menu():
             return
         for evento in eventos:
             print(f"ID: {evento[0]} | Nome: {evento[1]} | Data: {evento[2]} | Tema: {evento[3]}")
-        id_evento = int(input("Selecione o ID do evento que deseja alterar: "))
+        try:
+            id_evento = int(input("Selecione o ID do evento que deseja alterar: "))
+            if id_evento <= 0:
+                print("ID inválido.")
+                return
+        except ValueError:
+            print("Por favor, digite um número válido para o ID do evento.")
+            return
         nome = input("Novo nome do evento (deixe em branco para não alterar): ")
-        data = input("Nova data do evento (dd/MM/AAAA) (deixe em branco para não alterar): ")
-        tema = input("Novo tema do evento (deixe em branco para não alterar): ")
-        update_event_in_db(id_evento, nome, data, tema)
-        if not nome and not data and not tema:
+        data = input("Nova data do evento (DD/MM/AAAA) (deixe em branco para não alterar): ")
+        id_tema = input("Novo ID do tema (deixe em branco para não alterar): ")
+        
+        if data:
+            try:
+                data = datetime.strptime(data, "%d/%m/%Y").strftime("%d/%m/%Y")
+            except ValueError:
+                print("Data inválida! Use o formato DD/MM/AAAA.")
+                return
+        else:
+            data = None
+        
+        if id_tema:
+            try:
+                id_tema = int(id_tema)
+                if id_tema <= 0:
+                    print("ID de tema inválido.")
+                    return
+            except ValueError:
+                print("Por favor, digite um número válido para o ID do tema.")
+                return
+        else:
+            id_tema = None
+        if not nome and not data and not id_tema:
             print("Nenhuma alteração foi feita.")
             return
+        update_event_in_db(id_evento, nome or None, data, id_tema)
         print("Evento alterado com sucesso.")
     except Exception as e:
         print(f"Erro ao alterar evento: {e}")
@@ -72,9 +112,13 @@ def event_removal_menu():
             return
         for evento in eventos:
             print(f"ID: {evento[0]} | Nome: {evento[1]} | Data: {evento[2]} | Tema: {evento[3]}")
-        id_evento = int(input("Selecione o ID do evento que deseja excluir: "))
-        if not id_evento:
-            print("ID inválido. O evento não foi excluído.")
+        try:
+            id_evento = int(input("Selecione o ID do evento que deseja excluir: "))
+            if id_evento <= 0:
+                print("ID inválido. O evento não foi excluído.")
+                return
+        except ValueError:
+            print("Por favor, digite um número válido para o ID do evento.")
             return
         delete_event_from_db(id_evento)
         print("Evento excluído com sucesso.")

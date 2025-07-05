@@ -38,20 +38,29 @@ def theme_update_in_db(id_tema, novo_tema, nova_descricao):
     conn.commit()
     conn.close()
 
-def search_theme_from_db(termo):
+
     # This function searches for themes in the database by name or ID.
     # It connects to the database and retrieves themes that match the search term.
     # The search term can be a partial match for both the theme name and ID.
+
+def search_theme_from_db(termo_busca):
+      # This function searches for themes in the database by name or ID.
+    # It connects to the database and retrieves themes that match the search term.
+    # The search term can be a partial match for both the theme name and ID.
+
     try:
         conn = conectar()
         cur = conn.cursor()
-        termo_busca = f"%{termo}%"
+        termo_busca = f"%{termo_busca}%"
         cur.execute(
-            "SELECT * FROM tema WHERE id_tema LIKE ? OR tema LIKE ?",
+            "SELECT * FROM tema WHERE id_tema LIKE ? OR nome LIKE ?",
             (termo_busca, termo_busca)
-        )
-        temas = cur.fetchall()
-        conn.close()
-        return temas
+                (termo_busca, termo_busca)
+            )
+        resultados = cur.fetchall()
+        return resultados
     except Exception as e:
-        print(f"Erro ao buscar tema: {e}")
+        print(f"Erro ao buscar tema no banco de dados: {e}")
+        return None
+
+
